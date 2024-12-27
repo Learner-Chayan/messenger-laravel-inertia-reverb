@@ -6,6 +6,7 @@ import {usePage} from "@inertiajs/vue3";
 import TopBar from "@/Components/Chat/TopBar.vue";
 import Messages from "@/Components/Chat/Messages.vue";
 import Message from "@/Components/Chat/Message.vue";
+import SendMessage from "@/Components/Chat/SendMessage.vue";
 
 const props = defineProps({
     chat: {
@@ -60,8 +61,6 @@ function updateTypingIndicator(e) {
             <div class="message-container flex-grow overflow-auto space-y-5 pb-24"
                 v-if="messageList"
             >
-
-            {{ messageList }}
             <Messages>
                     <template v-for="message in messageList" :key="message.id">
                         <Message :message="message" :sender="$page.props.auth.user.id === message?.user?.id" />
@@ -81,6 +80,7 @@ function updateTypingIndicator(e) {
                 </div>
             </div>
 
+            <SendMessage :chat="chat"/>
 
         </div>
     </ChatLayout>

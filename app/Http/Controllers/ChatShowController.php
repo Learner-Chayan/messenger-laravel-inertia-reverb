@@ -24,8 +24,6 @@ class ChatShowController extends Controller
             ->cursorPaginate(10, ['*'], 'cursor', $cursor);
         $user = auth()->user();
 
-        dd( $messages);
-
         $chats = $query ? Chat::search($query)
             ->get() : Chat::whereHas('users', function ($query) use ($user) {
             $query->where('user_id', $user->id);
