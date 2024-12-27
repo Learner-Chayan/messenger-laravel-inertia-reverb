@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatShowController;
 use App\Http\Controllers\ShowNewChatController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -24,4 +25,5 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/', ShowNewChatController::class)->name('chat.new.show');
+    Route::get('/{chat}', ChatShowController::class)->name('chat.show');
 });
