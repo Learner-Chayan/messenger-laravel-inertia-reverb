@@ -34,6 +34,9 @@ class SendMessageController extends Controller
             'attachments' => $attachments
         ]);
 
+        broadcast(new MessageSent($chat, $message));
+        broadcast(new ChatUpdated($chat));
+
 
         return redirect()->back();
     }
