@@ -4,6 +4,8 @@ import Sidebar from "@/Components/Sidebar/Sidebar.vue";
 import {nextTick, onMounted, ref} from "vue";
 import {usePage} from "@inertiajs/vue3";
 import TopBar from "@/Components/Chat/TopBar.vue";
+import Messages from "@/Components/Chat/Messages.vue";
+import Message from "@/Components/Chat/Message.vue";
 
 const props = defineProps({
     chat: {
@@ -58,7 +60,21 @@ function updateTypingIndicator(e) {
             <div class="message-container flex-grow overflow-auto space-y-5 pb-24"
                 v-if="messageList"
             >
-                    <!-- messages will be here  -->
+
+            {{ messageList }}
+            <Messages>
+                    <template v-for="message in messageList" :key="message.id">
+                        <Message :message="message" :sender="$page.props.auth.user.id === message?.user?.id" />
+                    </template>
+                    <div v-if="typingUsers.length" class="flex ms-auto justify-end gap-x-2 sm:gap-x-4">
+                        <div class="flex items-center space-x-1 bg-blue-600 p-2 rounded-full">
+                            <div class="dot bg-gray-300"></div>
+                            <div class="dot bg-gray-300"></div>
+                            <div class="dot bg-gray-300"></div>
+                        </div>
+                        <span v-for="user in typingUsers" :key="user.id">{{ user.name }} is typing...</span>
+                    </div>
+                </Messages>
 
                 <div class="text-center" v-if="messages.length === 0">
                     This looks rather empty...

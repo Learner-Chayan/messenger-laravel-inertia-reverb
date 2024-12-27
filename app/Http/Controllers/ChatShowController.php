@@ -24,6 +24,8 @@ class ChatShowController extends Controller
             ->cursorPaginate(10, ['*'], 'cursor', $cursor);
         $user = auth()->user();
 
+        dd( $messages);
+
         $chats = $query ? Chat::search($query)
             ->get() : Chat::whereHas('users', function ($query) use ($user) {
             $query->where('user_id', $user->id);
@@ -32,8 +34,8 @@ class ChatShowController extends Controller
         $chat->markAsRead();
 
         return Inertia::render('Chat/Show', [
-            'chat' => ChatResource::make($chat),
-            'chats' => ChatResource::collection($chats),
+            'chat' => ChatResource::make($chat)->resolve(),
+            'chats' => ChatResource::collection($chats)->resolve(),
             'messages' => MessageResource::collection($messages),
             'pagination' => [
                 'next_cursor' => $messages->nextCursor()?->encode(),
