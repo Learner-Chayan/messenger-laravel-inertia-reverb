@@ -87,7 +87,7 @@ php artisan key:generate
 php artisan migrate
 ```
 
-### Step 7: Seed the Database (Optional)
+### Step 7: Seed the Database 
 
 If you have seeders defined, run:
 
