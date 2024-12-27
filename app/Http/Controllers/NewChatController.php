@@ -58,6 +58,10 @@ class NewChatController extends Controller
         // Attach users to the chat
         $chat->users()->attach($userIds);
 
+        foreach ($userIds as $userId) {
+            broadcast(new NewChat($chat, User::find($userId)));
+        }
+
         return redirect()->route('chat.show', $chat);
     }
 }

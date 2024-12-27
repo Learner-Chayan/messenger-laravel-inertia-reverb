@@ -26,5 +26,8 @@ class TypingController extends Controller
                 'is_typing' => $request->input('is_typing', true),
             ]);
         }
+
+
+        broadcast(new UserTyping($chat, auth()->user()));
     }
 }
